@@ -1,7 +1,10 @@
 <script lang="ts">
+	import Modal from "../Modal.svelte";
+	let showModal = false;
 	import logo from './taekst-logo.svg';
 	$: day = true;
 	$: src = day ? 'src/lib/header/night.svg' : 'src/lib/header/day.svg';
+	$: fileName = "";
 	function toggle() {
 		day = !day
 		window.document.body.classList.toggle('dark-mode')
@@ -9,23 +12,22 @@
 </script>
 
 <header>
-		<a href="https://github.com/qvisten999/TAEKST">
-			<img src={logo} alt="TAEKST" />
-		</a>
 		<div class="header-content">
-
+				<a href="https://github.com/qvisten999/TAEKST">
+					<img src={logo} alt="TAEKST" />
+				</a>
 		<div class="header-content-container-left">
-			<input class="file-name-input" placeholder="Draft"/>
+			<input class="file-name-input" placeholder="Draft" bind:value={fileName} />
 			<ul>
 				<li>File</li>
 				<li>Edit</li>
 				<li>Tools</li>
 				<li>Help</li>
 			</ul>
-		</div>
+	</div>
 		<div class="header-content-container-right">
 			<img src={src} class="dark-mode-icon" alt="dark-mode-toggle" on:click={toggle} />
-			<button>Share</button>
+			<button on:click="{() => showModal = true}">Share</button>
 		</div>
 
 	</div>
@@ -45,12 +47,29 @@
 	</nav>  -->
 </header>
 
+{#if showModal}
+	<Modal on:close="{() => showModal = false}">
+		<h1 slot="header">
+			{"Share a link to " + fileName}
+		</h1>
+		<p>Everyone with the link will be able make a copy of your work</p>
+
+		<label>Message to show when the reciever opens the link</label>
+		<textarea placeholder="E.g. Here’s an invitation for my garden party next week. Hope to see you!"></textarea>
+		<input type="checkbox" />
+
+		<button>Copy link</button>
+	</Modal>
+{/if}
+
+
 <style lang='scss'>
 	@import "src/consts.scss";
 
 	.dark-mode-icon {
 		height: 32px;
 		width: 32px;
+		margin-right: $tiny-padding;
 	}
 
 	header {
@@ -73,7 +92,8 @@
 
 	.header-content {
 		display: flex;
-		justify-content: space-between;
+		align-items: center;
+		width: calc(100vw - ($default-padding * 2));	
 	
 
 	.header-content-container-left {
@@ -98,6 +118,7 @@
 		flex-direction: row;
 		padding-left: $tiny-padding;
 		align-items: center;
+		margin-left: auto;
 
 		button {
 			background-color: $primary-color;
