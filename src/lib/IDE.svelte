@@ -13,6 +13,7 @@
 	import rehypeDocument from 'rehype-document'
 	import { visit } from 'unist-util-visit'
 	import { is } from 'unist-util-is'
+	import { markdown } from './store'
 
 	let data: string = '';
 
@@ -108,6 +109,8 @@
 		// .use(rehypeMathjax) // Convert span math to mathjax -> does not currently work. Breaks svelte?
 		.use(rehypeStringify) // To HTML string -> check XSS 
 		.process(event.detail.text)
+		
+		markdown.set(event.detail.text)
 
 		data = String(file);
 	}
