@@ -1,9 +1,20 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
+	let text = '';
+
+	// We should add to store instead -> support undo CMD+Z
+	function emitData() {
+		dispatch('output', {
+			text: text
+		});
+	}
+
 </script>
 
-<div class="editor">
-	#WHAAAAAT UUUUP!?
-</div>
+<textarea  bind:value={text} on:input={() => emitData()} class="editor"></textarea>
 
 <style lang="scss">
 	@import "src/consts.scss";

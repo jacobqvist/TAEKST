@@ -1,11 +1,14 @@
 <script lang="ts">
+	export let data: string;
 </script>
 
-<div class="preview">
-	<h1>Hej Mads</h1>
-</div>
+<iframe title="preview" class="preview" srcdoc={data}>
 
-<style lang="scss">
+</iframe>
+
+
+<style  lang="scss">
+	@import "src/latex.scss";
 	@import "src/consts.scss";
 	.preview {
 		width: calc((100vw - $default-padding * 4) / 2);
