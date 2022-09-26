@@ -13,4 +13,8 @@
 		background-color: $white;
 		margin: $default-padding;
 	}
+	:global(body.dark-mode) .preview {
+		background-color: $primary-color;
+		color: $white;
+	}
 </style>

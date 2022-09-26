@@ -25,4 +25,8 @@
 		background-color: $background-color;
 	}
 
+	:global(body.dark-mode) section { 
+		background-color: black;
+	}
+
 </style>

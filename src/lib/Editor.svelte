@@ -2,7 +2,7 @@
 </script>
 
 <div class="editor">
-	#Hej Mads
+	#WHAAAAAT UUUUP!?
 </div>
 
 <style lang="scss">
@@ -12,5 +12,10 @@
 		height: calc(100vh - $header-height - 2 * $default-padding);
 		background-color: $white;
 		margin: $default-padding;
+	}
+
+	:global(body.dark-mode) .editor {
+		background-color: $primary-color;
+		color: $white;
 	}
 </style>
