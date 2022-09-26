@@ -1,0 +1,19 @@
+// TEAKST COLORS
+
+// Primary color
+$primary-color-h: 0;
+$primary-color-s: 0%;
+$primary-color-l: 26%;
+$primary-color: hsla($primary-color-h, $primary-color-s, $primary-color-l, 1);
+
+$white: hsla(0, 0%, 100%, 1);
+$black: rgba(0, 0, 0, 0);
+
+
+$background-color: hsla(158, 46%, 91%, 1);
+
+$default-padding: 32px;
+$tiny-padding: calc($default-padding / 2);
+$logo-size: 38px;
+
+$header-height: 64px;

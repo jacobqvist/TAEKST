@@ -1,20 +1,23 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import logo from './svelte-logo.svg';
+	import logo from './taekst-logo.svg';
 </script>
 
 <header>
-	<div class="corner">
-		<a href="https://kit.svelte.dev">
-			<img src={logo} alt="SvelteKit" />
+		<a href="https://github.com/qvisten999/TAEKST">
+			<img src={logo} alt="TAEKST" />
 		</a>
-	</div>
+		<div class="header-content-container">
+			<input class="file-name-input" placeholder="Draft"/>
+			<ul>
+				<li>File</li>
+				<li>Edit</li>
+				<li>Tools</li>
+				<li>Help</li>
+			</ul>
+		</div>
 
-	<nav data-sveltekit-prefetch>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
-		</svg>
-		<ul>
+		<!--	<nav data-sveltekit-prefetch>
+ 		<ul>
 			<li class:active={$page.url.pathname === '/'}>
 				<a href="/">Home</a>
 			</li>
@@ -25,102 +28,61 @@
 				<a href="/todos">Todos</a>
 			</li>
 		</ul>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
-		</svg>
-	</nav>
-
-	<div class="corner">
-		<!-- TODO put something else here? github link? -->
-	</div>
+	</nav>  -->
 </header>
 
-<style>
+<style lang='scss'>
+	@import "src/consts.scss";
+
 	header {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.corner {
-		width: 3em;
-		height: 3em;
-	}
-
-	.corner a {
+		height: $header-height;
+		background-color: $white;
+		box-sizing: border-box;
+		padding-left: $default-padding;
+		padding-left: $default-padding;
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		width: 100%;
-		height: 100%;
+		border-bottom: 1px;
+		border-bottom-color: $primary-color;
+		border-bottom-style: solid;
 	}
 
-	.corner img {
-		width: 2em;
-		height: 2em;
-		object-fit: contain;
-	}
-
-	nav {
+	.header-content-container {
 		display: flex;
-		justify-content: center;
-		--background: rgba(255, 255, 255, 0.7);
+		flex-direction: column;
+		padding-left: $tiny-padding;
+		margin-top: 4px;
 	}
 
-	svg {
-		width: 2em;
-		height: 3em;
-		display: block;
-	}
-
-	path {
-		fill: var(--background);
+	.file-name-input {
+		width: calc(100vw - $default-padding - $logo-size - 300px );
+		height: 24px;
+		font-weight: 600;
+		font-size: 20px;
+		border: none;
 	}
 
 	ul {
 		position: relative;
-		padding: 0;
-		margin: 0;
-		height: 3em;
 		display: flex;
-		justify-content: center;
-		align-items: center;
 		list-style: none;
-		background: var(--background);
 		background-size: contain;
+		padding-left: 0;
 	}
-
+	
 	li {
+		padding-right: $tiny-padding;
 		position: relative;
 		height: 100%;
 	}
 
-	li.active::before {
-		--size: 6px;
-		content: '';
-		width: 0;
-		height: 0;
-		position: absolute;
-		top: 0;
-		left: calc(50% - var(--size));
-		border: var(--size) solid transparent;
-		border-top: var(--size) solid var(--accent-color);
-	}
+	// li.active::before {
+	// 	--size: 6px;
+	// 	content: '';
+	// 	width: 0;
+	// 	height: 0;
+	// 	position: absolute;
+	// 	top: 0;
+	// }
 
-	nav a {
-		display: flex;
-		height: 100%;
-		align-items: center;
-		padding: 0 1em;
-		color: var(--heading-color);
-		font-weight: 700;
-		font-size: 0.8rem;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		text-decoration: none;
-		transition: color 0.2s linear;
-	}
-
-	a:hover {
-		color: var(--accent-color);
-	}
 </style>
