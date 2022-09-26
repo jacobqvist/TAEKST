@@ -106,17 +106,6 @@
 		.use(directive) // Custom logic
 		.use(remarkRehype) // Convert to HTML AST
 		// .use(rehypeMathjax) // Convert span math to mathjax -> does not currently work. Breaks svelte?
-		.use(rehypeDocument, { // Creates an entire document -> including doctype. We should avoid this and add view encapsulated component with the styles instead
-			title: 'TAEKST',
-			css: [
-				"https://latex.now.sh/style.css",
-				"https://latex.now.sh/prism/prism.css"
-			],
-			js: [
-				"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js",
-				"https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"
-		]
-			})
 		.use(rehypeStringify) // To HTML string -> check XSS 
 		.process(event.detail.text)
 

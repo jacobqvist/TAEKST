@@ -1,14 +1,24 @@
 <script lang="ts">
+	import { previewFrame } from './preview';
+	import { afterUpdate } from 'svelte';
+
 	export let data: string;
+
+	let iframe: HTMLIFrameElement;
+
+	function setNode(node: HTMLIFrameElement) {
+		iframe = node;
+	}
+
+	afterUpdate(() => {
+		iframe.contentDocument!.body.innerHTML = data;
+	})
+
 </script>
 
-<iframe title="preview" class="preview" srcdoc={data}>
+<iframe title="preview" class="preview" srcdoc="{previewFrame}" use:setNode></iframe>
 
-</iframe>
-
-
-<style  lang="scss">
-	@import "src/latex.scss";
+<style lang="scss">
 	@import "src/consts.scss";
 	.preview {
 		width: calc((100vw - $default-padding * 4) / 2);
