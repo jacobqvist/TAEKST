@@ -43,11 +43,12 @@
 
 <div class="modal" role="dialog" aria-modal="true" bind:this={modal}>
 	<slot name="header"></slot>
-	<hr>
 	<slot></slot>
 </div>
 
-<style>
+<style lang="scss">
+	@import "src/consts.scss";
+
 	.modal-background {
 		position: fixed;
 		top: 0;
@@ -75,4 +76,7 @@
 	button {
 		display: block;
 	}
+
+
+
 </style>

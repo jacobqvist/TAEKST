@@ -50,14 +50,13 @@
 {#if showModal}
 	<Modal on:close="{() => showModal = false}">
 		<h1 slot="header">
-			{"Share a link to " + fileName}
+			{"Share a link to " + (fileName ? fileName : "Draft")}
 		</h1>
-		<p>Everyone with the link will be able make a copy of your work</p>
-
+		<p class="heading-description">Everyone with the link will be able make a copy of your work</p>
+		<div class="spacer"></div>
 		<label>Message to show when the reciever opens the link</label>
 		<textarea placeholder="E.g. Here’s an invitation for my garden party next week. Hope to see you!"></textarea>
-		<input type="checkbox" />
-
+		<div class="spacer"></div>
 		<button>Copy link</button>
 	</Modal>
 {/if}
@@ -167,5 +166,26 @@
 	// 	position: absolute;
 	// 	top: 0;
 	// }
+
+	.heading-description {
+		font-size: 14px;
+		color: $primary-color;
+		margin-top: -4px;
+	}
+
+	.spacer {
+		width: 100%;
+		height: $default-padding;
+	}
+
+	textarea {
+		width: 100%;
+		height: 90px;
+		border-radius: 4px;
+		background-color: rgba(0, 0, 0, 0.05);
+		border: none;
+		padding: $tiny-padding;
+		resize: none;
+	}
 
 </style>
