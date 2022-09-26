@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Modal from "../Modal.svelte";
+	import { markdown } from "../store";
 	let showModal = false;
 	import logo from './taekst-logo.svg';
 	$: day = true;
@@ -9,6 +10,10 @@
 		day = !day
 		window.document.body.classList.toggle('dark-mode')
 }
+
+	function copyToClipboard(){
+		markdown.subscribe((val) => navigator.clipboard.writeText(val));
+	}
 </script>
 
 <header>
@@ -57,7 +62,7 @@
 		<label>Message to show when the reciever opens the link</label>
 		<textarea placeholder="E.g. Here’s an invitation for my garden party next week. Hope to see you!"></textarea>
 		<div class="spacer"></div>
-		<button>Copy link</button>
+		<button on:click={copyToClipboard}>Copy link</button>
 	</Modal>
 {/if}
 
