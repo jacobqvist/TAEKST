@@ -25,6 +25,7 @@
 		height: calc(100vh - $header-height - 2 * $default-padding);
 		background-color: $white;
 		margin: $default-padding;
+		border: none;
 	}
 	:global(body.dark-mode) .preview {
 		background-color: $primary-color;
