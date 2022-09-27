@@ -45,6 +45,7 @@
 	"type": "module",
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.0",
+		"js-confetti": "^0.10.2",
 		"rehype-document": "^6.1.0",
 		"rehype-format": "^4.0.1",
 		"rehype-mathjax": "^4.0.2",

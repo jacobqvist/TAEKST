@@ -4,12 +4,21 @@
 	// On Designing and Building Toggle Switches by Sara Soueidan https://www.sarasoueidan.com/blog/toggle-switch-design/
 	// and this example by Scott O'hara https://codepen.io/scottohara/pen/zLZwNv 
 
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
 
 	export let label;
 	export let design = 'inner label'
 	export let options = [];
 	export let fontSize = 16;
 	export let value = 'off';
+
+	function changed() {
+		dispatch('changed', {
+			value: value
+		});
+	}
 
 	let checked = false;
 
@@ -24,6 +33,8 @@
 			checked = state === 'true' ? false : true
 
 			value = checked === true ? 'on' : 'off'
+
+			changed();
 	}
 
 	const slugify = (str = "") =>
