@@ -21,7 +21,7 @@
   let message = "";
   let title = "";
 
-  let showModal = true;
+  let showModal = false;
 
 	async function handleData(value) {
     body = await convertMarkdownToHtml(value);
@@ -33,6 +33,9 @@
 		const taekst = JSON.parse(atob(searchString));
     handleData(taekst.text)
     message = taekst.message;
+    if (message != null && message != "") {
+      showModal = true;
+    }
     title = taekst.name;
     showConfetti = taekst.confetti == 'on';
 	}
