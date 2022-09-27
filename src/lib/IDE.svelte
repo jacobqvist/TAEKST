@@ -3,6 +3,7 @@
 	import Preview from "./Preview.svelte";
 	import { convertMarkdownToHtml } from '../../parser';
 	import { markdown, html } from './store';
+	import Divider from "./Divider.svelte";
 
 	async function handleOutput(value: string) {
 		const output = await convertMarkdownToHtml(value);
@@ -14,6 +15,7 @@
 
 <div class="ide">
 	<Editor />
+	<Divider />
 	<Preview />
 </div>
 
