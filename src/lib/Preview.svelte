@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { previewFrame } from './preview';
-	import { afterUpdate } from 'svelte';
-
-	export let data: string;
+	import { html } from './store';
 
 	let iframe: HTMLIFrameElement;
 
@@ -10,13 +8,15 @@
 		iframe = node;
 	}
 
-	afterUpdate(() => {
-		iframe.contentDocument!.body.innerHTML = data;
-	})
+	function subscribe() {
+		html.subscribe(value => (
+			iframe.contentDocument!.body.innerHTML = value
+		));
+	}
 
 </script>
 
-<iframe title="preview" class="preview" srcdoc="{previewFrame}" use:setNode></iframe>
+<iframe on:load="{() => subscribe()}" title="preview" class="preview" srcdoc="{previewFrame}" use:setNode></iframe>
 
 <style lang="scss">
 	@import "src/consts.scss";

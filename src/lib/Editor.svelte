@@ -1,20 +1,24 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { onMount } from 'svelte';
+	import { markdown } from './store';
 
-	const dispatch = createEventDispatcher();
+	onMount(() => {
+		let savedValue = markdown.get();
+		if (savedValue) {
+			text = savedValue;
+		}
+	})
 
 	let text = '';
 
 	// We should add to store instead -> support undo CMD+Z
-	function emitData() {
-		dispatch('output', {
-			text: text
-		});
+	function saveToStore() {
+		markdown.set(text);
 	}
 
 </script>
 
-<textarea  bind:value={text} on:input={() => emitData()} class="editor"></textarea>
+<textarea  bind:value={text} on:input={() => saveToStore()} class="editor"></textarea>
 
 <style lang="scss">
 	@import "src/consts.scss";

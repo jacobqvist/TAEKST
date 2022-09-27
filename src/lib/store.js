@@ -1,7 +1,18 @@
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 
 function createMarkdown() {
-	const { subscribe, set, update } = writable("");
+	const store = writable("");
+
+	return {
+		subscribe: store.subscribe,
+		set: (value) => store.update(() => value),
+		reset: () => store.set(""),
+        get: () => get(store)
+	};
+}
+
+function createHtml() {
+	const { subscribe, update, set } = writable("");
 
 	return {
 		subscribe,
@@ -10,4 +21,5 @@ function createMarkdown() {
 	};
 }
 
+export const html = createHtml();
 export const markdown = createMarkdown();

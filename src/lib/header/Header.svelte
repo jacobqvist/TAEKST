@@ -23,7 +23,7 @@
 
 	function copyToClipboard(){
 		const baseUrl = window.location.origin;
-		markdown.subscribe((val) => navigator.clipboard.writeText(baseUrl + "/" + btoa(JSON.stringify({text: val, message: message, confetti: confetti, editable: editable} as TaekstObject))));
+		markdown.subscribe((val) => navigator.clipboard.writeText(baseUrl + "/?" + btoa(JSON.stringify({text: val, message: message, confetti: confetti, editable: editable} as TaekstObject))));
 	}
 </script>
 

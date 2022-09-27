@@ -13,9 +13,7 @@
 	import rehypeDocument from 'rehype-document'
 	import { visit } from 'unist-util-visit'
 	import { is } from 'unist-util-is'
-	import { markdown } from './store'
-
-	let data: string = '';
+	import { markdown, html } from './store'
 
 	// TODO extract to custom file with typings
 	// Remove any
@@ -95,8 +93,7 @@
 		}
 		}
 
-
-	async function handleOutput(event: any) {
+	async function handleOutput(value: string) {
 
 		const file = await unified()
 		.use(remarkParse) // Convert to Markdown AST
@@ -108,17 +105,17 @@
 		.use(remarkRehype) // Convert to HTML AST
 		// .use(rehypeMathjax) // Convert span math to mathjax -> does not currently work. Breaks svelte?
 		.use(rehypeStringify) // To HTML string -> check XSS 
-		.process(event.detail.text)
+		.process(value)
 		
-		markdown.set(event.detail.text)
-
-		data = String(file);
+		html.set(String(file))
 	}
+
+	markdown.subscribe(async (value: string) => (await handleOutput(value)))
 </script>
 
 <div class="ide">
-	<Editor on:output={handleOutput}/>
-	<Preview data={data}/>
+	<Editor />
+	<Preview />
 </div>
 
 <style lang="scss">

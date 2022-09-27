@@ -1,7 +1,13 @@
 <script lang="ts">
-	import Counter from '$lib/Counter.svelte';
-	import Editor from '$lib/Editor.svelte';
 	import Ide from '$lib/IDE.svelte';
+	import { markdown } from '../lib/store'
+	import { page } from '$app/stores';
+
+	let searchString = $page.url.search != null ? $page.url.search.substring(1) : null;
+	if (searchString) {
+		markdown.set(JSON.parse(atob(searchString)).text);
+	}
+
 </script>
 
 <svelte:head>
