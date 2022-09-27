@@ -1,4 +1,11 @@
 <script lang="ts">
+	export interface TaekstObject {
+		text: string;
+		message: string;
+		confetti: boolean;
+		editable: boolean;
+	}
+	import Switch from "$lib/Switch.svelte";
 	import Modal from "../Modal.svelte";
 	import { markdown } from "../store";
 	let showModal = false;
@@ -6,13 +13,17 @@
 	$: day = true;
 	$: src = day ? 'src/lib/header/night.svg' : 'src/lib/header/day.svg';
 	$: fileName = "";
+	$: message = "";
+	let confetti: boolean;
+	let editable: boolean;
 	function toggle() {
 		day = !day
 		window.document.body.classList.toggle('dark-mode')
 }
 
 	function copyToClipboard(){
-		markdown.subscribe((val) => navigator.clipboard.writeText(val));
+		const baseUrl = window.location.origin;
+		markdown.subscribe((val) => navigator.clipboard.writeText(baseUrl + "/" + btoa(JSON.stringify({text: val, message: message, confetti: confetti, editable: editable} as TaekstObject))));
 	}
 </script>
 
@@ -60,9 +71,13 @@
 		<p class="heading-description">Everyone with the link will be able make a copy of your work</p>
 		<div class="spacer"></div>
 		<label>Message to show when the reciever opens the link</label>
-		<textarea placeholder="E.g. Here’s an invitation for my garden party next week. Hope to see you!"></textarea>
+		<textarea bind:value={message} placeholder="E.g. Here’s an invitation for my garden party next week. Hope to see you!"></textarea>
 		<div class="spacer"></div>
-		<button on:click={copyToClipboard}>Copy link</button>
+		<Switch bind:value={confetti} label="Enable confetti" fontSize={12} design="slider"/>
+		<div class="spacer"></div>
+		<Switch bind:value={editable} label="Editable" fontSize={12} design="slider"/>
+		<div class="spacer"></div>
+		<button class="outlined-button" on:click={copyToClipboard}>Copy link</button>
 	</Modal>
 {/if}
 
@@ -192,5 +207,26 @@
 		padding: $tiny-padding;
 		resize: none;
 	}
+
+	.outlined-button {
+			background-color: white;
+			height: 37px;
+			color: $primary-color;
+			font-weight: 700px;
+			border-radius: 8px;
+			border-style: solid;
+			border-color: $primary-color;
+			border-width: 1px;
+			padding-left: 32px;
+			padding-right: 32px;
+			margin: 0;
+			width: auto;
+			overflow: visible;
+			line-height: normal;
+			&:hover {
+				cursor: pointer;
+				background-color: rgb(249, 249, 249);
+			}
+			}
 
 </style>
