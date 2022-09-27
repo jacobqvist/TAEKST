@@ -7,6 +7,24 @@
 	import { markdown, settings } from "../store";
 	let showModal = false;
 	import logo from './taekst-logo.svg';
+
+	import JSConfetti from 'js-confetti'
+
+	let jsConfetti: any;
+
+	function showConfetti(event: any) {
+		if (event.detail.value == 'on') {
+			jsConfetti.addConfetti({
+				confettiRadius: 4,
+  				confettiNumber: 1000,
+			});
+		}
+	}
+
+	function getCanvas(canvas: HTMLCanvasElement) {
+		jsConfetti = new JSConfetti({canvas})
+	}
+
 	$: day = true;
 	$: src = day ? 'src/lib/header/night.svg' : 'src/lib/header/day.svg';
 	$: fileName = "";
@@ -32,6 +50,8 @@
 		navigator.clipboard.writeText(baseUrl + "/?" + btoa(JSON.stringify(settings)))
 	}
 </script>
+
+<canvas use:getCanvas style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 1000; pointer-events: none;"></canvas>
 
 <header>
 		<div class="header-content">
@@ -79,7 +99,7 @@
 		<label>Message to show when the reciever opens the link</label>
 		<textarea bind:value={message} placeholder="E.g. Here’s an invitation for my garden party next week. Hope to see you!"></textarea>
 		<div class="spacer"></div>
-		<Switch bind:value={confetti} label="Enable confetti" fontSize={12} design="slider"/>
+		<Switch bind:value={confetti} label="Enable confetti" on:changed={(val) => showConfetti(val)} fontSize={12} design="slider"/>
 		<div class="spacer"></div>
 		<Switch bind:value={editable} label="Editable" fontSize={12} design="slider"/>
 		<div class="spacer"></div>
