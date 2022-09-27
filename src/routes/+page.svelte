@@ -1,11 +1,14 @@
 <script lang="ts">
 	import Ide from '$lib/IDE.svelte';
-	import { markdown } from '../lib/store'
+	import { markdown, settings } from '../lib/store'
 	import { page } from '$app/stores';
+	import type { TaekstObject } from '$lib/taekst';
 
 	let searchString = $page.url.search != null ? $page.url.search.substring(1) : null;
 	if (searchString) {
-		markdown.set(JSON.parse(atob(searchString)).text);
+		const taekst: TaekstObject = JSON.parse(atob(searchString));
+		markdown.set(taekst.text);
+		settings.set({name: taekst.name});
 	}
 
 </script>

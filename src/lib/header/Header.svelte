@@ -1,13 +1,10 @@
 <script lang="ts">
-	export interface TaekstObject {
-		text: string;
-		message: string;
-		confetti: boolean;
-		editable: boolean;
-	}
 	import Switch from "$lib/Switch.svelte";
+	import type { TaekstObject } from "$lib/taekst";
+	//import TaekstObject from "../taekst";
+	import { onMount } from "svelte";
 	import Modal from "../Modal.svelte";
-	import { markdown } from "../store";
+	import { markdown, settings } from "../store";
 	let showModal = false;
 	import logo from './taekst-logo.svg';
 	$: day = true;
@@ -19,11 +16,19 @@
 	function toggle() {
 		day = !day
 		window.document.body.classList.toggle('dark-mode')
-}
+	}
+
+	onMount(() => {
+		settings.subscribe(val => {
+			fileName = val.name;
+		})
+	})
 
 	function copyToClipboard(){
-		const baseUrl = window.location.origin;
-		markdown.subscribe((val) => navigator.clipboard.writeText(baseUrl + "/?" + btoa(JSON.stringify({text: val, message: message, confetti: confetti, editable: editable} as TaekstObject))));
+		const baseUrl = location.protocol + '//' + location.hostname + ":" + (+location.port + 1);
+		const settings: TaekstObject = {text: markdown.get(), message: message, confetti: confetti, editable: editable, name: fileName}
+
+		navigator.clipboard.writeText(baseUrl + "/?" + btoa(JSON.stringify(settings)))
 	}
 </script>
 

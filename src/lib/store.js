@@ -21,5 +21,21 @@ function createHtml() {
 	};
 }
 
+function createSettings() {
+    const store = writable({
+        name: ""
+    });
+
+	return {
+		subscribe: store.subscribe,
+		set: (value) => store.update(() => value),
+		reset: () => store.set({
+            name: ""
+        }),
+        get: () => get(store)
+	};
+}
+
 export const html = createHtml();
 export const markdown = createMarkdown();
+export const settings = createSettings();
