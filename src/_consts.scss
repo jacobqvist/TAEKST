@@ -7,7 +7,8 @@ $primary-color-l: 26%;
 $primary-color: hsla($primary-color-h, $primary-color-s, $primary-color-l, 1);
 
 $white: hsla(0, 0%, 100%, 1);
-$black: rgba(0, 0, 0, 0);
+$black: hsla(0, 0%, 0%, 1);
+$grey: hsla(0, 0%, 95%, 1);
 
 
 $background-color: hsla(158, 46%, 91%, 1);
