@@ -25,7 +25,8 @@
 	})
 
 	function copyToClipboard(){
-		const baseUrl = location.protocol + '//' + location.hostname + ":" + (+location.port + 1);
+		const port = (editable as any) == 'on' ? location.port : (+location.port + 1);
+		const baseUrl = location.protocol + '//' + location.hostname + ":" + port;
 		const settings: TaekstObject = {text: markdown.get(), message: message, confetti: confetti, editable: editable, name: fileName}
 
 		navigator.clipboard.writeText(baseUrl + "/?" + btoa(JSON.stringify(settings)))
